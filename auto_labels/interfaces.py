@@ -11,8 +11,8 @@ class GitScrapper(ABC):
     """Get some raw data from the git repo."""
 
     @abstractmethod
-    def __call__(self) -> ScrappersResults:
-        """Collect all the data, return them as a list."""
+    def __call__(self, ref1: str, ref2: str) -> ScrappersResults:
+        """Collect all the data from ref1 to ref2, return them as a list."""
 
 
 class LabelsGenerator(ABC):
@@ -26,6 +26,6 @@ class LabelsGenerator(ABC):
     def generate_labels(self, data: ScrappersResults) -> List[Label]:
         """Generate labels from a scrapping result."""
 
-    def __call__(self) -> List[Label]:
+    def __call__(self, ref1: str, ref2: str) -> List[Label]:
         """Generate labels."""
-        return self.generate_labels(self.scrapper())
+        return self.generate_labels(self.scrapper(ref1, ref2))
