@@ -1,9 +1,10 @@
 """Some basic interfaces to keep the programe upgradable."""
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Set, Dict
 
 Label = str
 ScrappersResults = List[str]
+RegexConfig = Dict[str, Label]
 
 
 # pylint: disable=too-few-public-methods
@@ -23,9 +24,9 @@ class LabelsGenerator(ABC):
         self.scrapper = scrapper
 
     @abstractmethod
-    def generate_labels(self, data: ScrappersResults) -> List[Label]:
+    def generate_labels(self, data: ScrappersResults) -> Set[Label]:
         """Generate labels from a scrapping result."""
 
-    def __call__(self, ref1: str, ref2: str) -> List[Label]:
+    def __call__(self, ref1: str, ref2: str) -> Set[Label]:
         """Generate labels."""
         return self.generate_labels(self.scrapper(ref1, ref2))
