@@ -1,0 +1,5 @@
+{
+  "commits": {
+    ".*\nBREAKING CHANGE:.*": "BREAKING"
+  }
+}

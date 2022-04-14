@@ -15,4 +15,4 @@ class FileScrapper(GitScrapper):
         return ["a"]
 
 
-FromFile = partial(RegexGenerator, scrapper=FileScrapper())
+FromFiles = partial(RegexGenerator, scrapper=FileScrapper())
