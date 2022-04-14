@@ -34,7 +34,7 @@ class ConfigGenerator:
     @property
     def config(self) -> List[LabelsGenerator]:
         """Get the config."""
-        lst = []
+        lst: List[LabelsGenerator] = []
         for key, config in self._config.items():
             lst.append(config_mapping[key](config))
         return lst
