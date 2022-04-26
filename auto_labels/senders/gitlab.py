@@ -27,6 +27,6 @@ class GitlabSender(Sender):
         if self.merge_request_labels:
             labels.update(set(self.merge_request_labels.split(",")))
         labels_str = ",".join(labels)
-        req = requests.post(self.url, data={"labels": labels_str})
+        req = requests.put(self.url, data={"labels": labels_str})
         if not req.ok:
             print(req.text, req.status_code)
