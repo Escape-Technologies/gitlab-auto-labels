@@ -1,6 +1,6 @@
 """Test the config."""
-import pytest
 import os
+import pytest
 
 from auto_labels.config import ConfigGenerator
 from auto_labels.generators.from_commits import FromCommits
@@ -21,7 +21,7 @@ def cd_to_config(config_folder: str) -> None:
     os.chdir(path_to_config(config_folder))
 
 
-@pytest.mark.parametrize('folder, result', [
+@pytest.mark.parametrize("folder, result", [
     ("all", [FromCommits, FromFiles, FromBranch]),
     ("branch", [FromBranch]),
     ("commits", [FromCommits]),

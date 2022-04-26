@@ -3,7 +3,6 @@ from auto_labels.interfaces import ScrappersResults, GitScrapper
 from auto_labels.generators.regex import RegexGenerator, RegexConfig
 
 
-# pylint: disable=too-few-public-methods
 class BranchScrapper(GitScrapper):
     """Get all commits."""
 
@@ -13,9 +12,8 @@ class BranchScrapper(GitScrapper):
         return ["a"]
 
 
-# pylint: disable=too-few-public-methods
 class FromBranch(RegexGenerator):
     """Generate some labels from the commits names."""
-    
+
     def __init__(self, config: RegexConfig):
         super().__init__(config, BranchScrapper())

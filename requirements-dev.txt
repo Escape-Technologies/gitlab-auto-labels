@@ -1,2 +1,5 @@
 pytest
+pytest-cov
 pylint
+pylint_absolute_imports
+pylint_quotes

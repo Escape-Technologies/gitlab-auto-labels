@@ -16,6 +16,20 @@ CONFIG_MAPPING = {
 }
 
 
+def _load_config(config_path: str):
+    """Load a config from the given file."""
+    with open(config_path, "r", encoding="utf-8") as config_file:
+        return json.load(config_file)
+
+def load_config(config_path: Optional[str]):
+    """Load a config and set it as the file."""
+    if config_path:
+        return _load_config(config_path)
+    if (config_path := getenv("AUTO_LABELS_CONFIG_PATH")):
+        return _load_config(config_path)
+    return _load_config(DEFAULT_CONFIG_PATH)
+
+
 class ConfigGenerator:
     """Generate the config."""
 
@@ -23,7 +37,7 @@ class ConfigGenerator:
 
     def __init__(self, config_path: Optional[str] = None):
         """Init with the config."""
-        self._config = self.load_config(config_path)
+        self._config = load_config(config_path)
 
     @property
     def config(self) -> List[LabelsGenerator]:
@@ -32,17 +46,3 @@ class ConfigGenerator:
         for key, config in self._config.items():
             lst.append(CONFIG_MAPPING[key](config))
         return lst
-
-    def load_config(self, config_path: Optional[str]):
-        """Load a config and set it as the file."""
-        if config_path:
-            return self._load_config(config_path)
-        elif (config_path := getenv('AUTO_LABELS_CONFIG_PATH')):
-            return self._load_config(config_path)
-        else:
-            return self._load_config(DEFAULT_CONFIG_PATH)
-
-    def _load_config(self, config_path: str):
-        """Load a config from the given file."""
-        with open(config_path, 'r', encoding='utf-8') as config_file:
-            return json.load(config_file)
