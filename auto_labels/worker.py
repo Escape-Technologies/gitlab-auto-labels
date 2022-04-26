@@ -32,6 +32,6 @@ class Worker:
     @staticmethod
     def get_output() -> Sender:
         """Return the output."""
-        if getenv("CI_JOB_TOKEN"):
+        if getenv("CI_MERGE_REQUEST_IID"):
             return GitlabSender()
         return ConsoleSender()
