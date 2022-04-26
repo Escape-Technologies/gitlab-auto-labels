@@ -1,8 +1,6 @@
 """Generate some labels from the commits names."""
-from functools import partial
-
 from auto_labels.interfaces import ScrappersResults, GitScrapper
-from auto_labels.generators.regex import RegexGenerator
+from auto_labels.generators.regex import RegexGenerator, RegexConfig
 
 
 # pylint: disable=too-few-public-methods
@@ -15,4 +13,9 @@ class CommitsScrapper(GitScrapper):
         return ["a"]
 
 
-FromCommits = partial(RegexGenerator, scrapper=CommitsScrapper())
+# pylint: disable=too-few-public-methods
+class FromCommits(RegexGenerator):
+    """Generate some labels from the commits names."""
+    
+    def __init__(self, config: RegexConfig):
+        super().__init__(config, CommitsScrapper())
