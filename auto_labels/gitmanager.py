@@ -28,4 +28,7 @@ class Git:
     def branch_name(self, ref2: str) -> str:
         """Return the branch name."""
         commit = next(self.repo.iter_commits(ref2))
-        return commit.name_rev.split(" ")[1]
+        name = commit.name_rev
+        if name:
+            return name.split(" ")[1]
+        return ref2.replace("remotes/", "").replace("origin/", "")
