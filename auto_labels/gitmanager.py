@@ -15,6 +15,8 @@ class Git:
             self.repo = Repo.init()
         except Exception as e:
             raise EnvironmentError("You seems not to be in a git repository.") from e
+        for remote in self.repo.remotes:
+            remote.fetch()
 
     @property
     def current_branch_name(self):
