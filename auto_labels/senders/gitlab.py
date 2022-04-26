@@ -24,6 +24,7 @@ class GitlabSender(Sender):
         return f"{self.base_url}/projects/{self.merge_request_project_id}/merge_requests/{self.merge_request_iid}"
 
     def send_labels(self, labels: Set[Label]) -> None:
-        labels.update(set(self.merge_request_labels.split(",")))
+        if self.merge_request_labels:
+            labels.update(set(self.merge_request_labels.split(",")))
         labels_str = ",".join(labels)
         requests.post(self.url, data={"labels": labels_str})
