@@ -1,5 +1,12 @@
 {
   "commits": {
     ".*\nBREAKING CHANGE:.*": "BREAKING"
+  },
+  "files": {
+    ".gitlab-ci.yml": "cicd"
+  },
+  "branch": {
+    "feat/.*": "feature",
+    "fix/.*": "bugfix"
   }
 }
