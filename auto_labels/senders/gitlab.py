@@ -17,6 +17,7 @@ class GitlabSender(Sender):
         self.merge_request_project_id = getenv("CI_MERGE_REQUEST_PROJECT_ID")
         self.merge_request_iid = getenv("CI_MERGE_REQUEST_IID")
         self.merge_request_labels = getenv("CI_MERGE_REQUEST_LABELS")
+        self.token = getenv("CI_JOB_TOKEN")
 
     @property
     def url(self) -> str:
@@ -27,6 +28,6 @@ class GitlabSender(Sender):
         if self.merge_request_labels:
             labels.update(set(self.merge_request_labels.split(",")))
         labels_str = ",".join(labels)
-        req = requests.put(self.url, data={"labels": labels_str})
+        req = requests.put(self.url, headers={"PRIVATE-TOKEN": self.token}, data={"labels": labels_str})
         if not req.ok:
             print(req.text, req.status_code)
