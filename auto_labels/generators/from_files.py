@@ -1,11 +1,8 @@
 """Generate some labels from the files names."""
-from functools import partial
-
 from auto_labels.interfaces import ScrappersResults, GitScrapper
-from auto_labels.generators.regex import RegexGenerator
+from auto_labels.generators.regex import RegexGenerator, RegexConfig
 
 
-# pylint: disable=too-few-public-methods
 class FileScrapper(GitScrapper):
     """Get all files."""
 
@@ -14,5 +11,8 @@ class FileScrapper(GitScrapper):
         # TODO
         return ["a"]
 
+class FromFiles(RegexGenerator):
+    """Generate some labels from the commits names."""
 
-FromFiles = partial(RegexGenerator, scrapper=FileScrapper())
+    def __init__(self, config: RegexConfig):
+        super().__init__(config, FileScrapper())

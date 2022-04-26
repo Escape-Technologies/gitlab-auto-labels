@@ -1,0 +1,14 @@
+[MASTER]
+load-plugins=pylint_absolute_imports, pylint_quotes
+ignore=.venv,setup.py
+
+[DESIGN]
+max-line-length=120
+
+# Quotes " or '
+string-quote=double
+triple-quote=double
+docstring-quote=double
+
+[MESSAGES CONTROL]
+disable=too-few-public-methods

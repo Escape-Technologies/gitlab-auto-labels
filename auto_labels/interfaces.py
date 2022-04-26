@@ -7,7 +7,6 @@ ScrappersResults = List[str]
 RegexConfig = Dict[str, Label]
 
 
-# pylint: disable=too-few-public-methods
 class GitScrapper(ABC):
     """Get some raw data from the git repo."""
 
