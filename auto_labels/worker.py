@@ -1,8 +1,10 @@
 """Generate labels from two commit refs."""
 from typing import List, Set
+from os import getenv
 
-from auto_labels.interfaces import LabelsGenerator, Label
-
+from auto_labels.interfaces import LabelsGenerator, Label, Sender
+from auto_labels.senders.gitlab import GitlabSender
+from auto_labels.senders.console import ConsoleSender
 
 class Worker:
     """The general program."""
@@ -23,8 +25,13 @@ class Worker:
             labels.update(generator(ref1, ref2))
         return labels
 
-    @staticmethod
-    def send_labels(labels: Set[Label]) -> None:
+    def send_labels(self, labels: Set[Label]) -> None:
         """Send the labels to the output."""
-        for label in labels:
-            print(label)
+        self.get_output().send_labels(labels)
+
+    @staticmethod
+    def get_output() -> Sender:
+        """Return the output."""
+        if getenv("CI_MERGE_REQUEST_IID"):
+            return GitlabSender()
+        return ConsoleSender()
