@@ -32,3 +32,35 @@ def test_base_config(folder: str, result: list) -> None:
     cd_to_config(folder)
     config = ConfigGenerator()
     assert set(map(type, config.config)) == set(result)
+
+
+@pytest.mark.parametrize("folder, result", [
+    ("all", [FromCommits, FromFiles, FromBranch]),
+    ("branch", [FromBranch]),
+    ("commits", [FromCommits]),
+    ("files", [FromFiles]),
+])
+def test_file_config(folder: str, result: list) -> None:
+    """Test the base config."""
+    # must works even if the local config file is not the right one
+    cd_to_config("files")
+    fp = os.path.join(path_to_config(folder), ".auto_labels.json")
+    config = ConfigGenerator(fp)
+    assert set(map(type, config.config)) == set(result)
+
+@pytest.mark.parametrize("folder, result", [
+    ("all", [FromCommits, FromFiles, FromBranch]),
+    ("branch", [FromBranch]),
+    ("commits", [FromCommits]),
+    ("files", [FromFiles]),
+])
+def test_env_config(folder: str, result: list) -> None:
+    """Test the base config."""
+    # must works even if the local config file is not the right one
+    cd_to_config("files")
+    fp = os.path.join(path_to_config(folder), ".auto_labels.json")
+    x = os.environ["AUTO_LABELS_CONFIG_PATH"]
+    os.environ["AUTO_LABELS_CONFIG_PATH"] = fp
+    config = ConfigGenerator()
+    assert set(map(type, config.config)) == set(result)
+    os.environ["AUTO_LABELS_CONFIG_PATH"] = x
