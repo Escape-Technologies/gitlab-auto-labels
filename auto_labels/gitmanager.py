@@ -1,13 +1,14 @@
 """Get git data for the generators."""
 from typing import List
-from unittest import result
 
 from git import Repo
 from git.objects.commit import Commit
 
 
 class Git:
-    
+
+    """Get git data for the generators."""
+
     def __init__(self):
         """Setup the repo"""
         self.repo = Repo.init()
@@ -24,4 +25,4 @@ class Git:
     def branch_name(self, ref2: str) -> str:
         """Return the branch name."""
         commit = next(self.repo.iter_commits(ref2))
-        return commit.name_rev.split(' ')[1]
+        return commit.name_rev.split(" ")[1]
