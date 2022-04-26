@@ -29,3 +29,14 @@ class LabelsGenerator(ABC):
     def __call__(self, ref1: str, ref2: str) -> Set[Label]:
         """Generate labels."""
         return self.generate_labels(self.scrapper(ref1, ref2))
+
+
+class Sender(ABC):
+    """Send labels to the output."""
+
+    def __init__(self):
+        """Setup the class."""
+
+    @abstractmethod
+    def send_labels(self, labels: Set[Label]) -> None:
+        """Send labels to the output."""
