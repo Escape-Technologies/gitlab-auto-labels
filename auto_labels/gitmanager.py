@@ -11,7 +11,10 @@ class Git:
 
     def __init__(self):
         """Setup the repo"""
-        self.repo = Repo.init()
+        try:
+            self.repo = Repo.init()
+        except Exception as e:
+            raise EnvironmentError("You seems not to be in a git repository.") from e
 
     @property
     def current_branch_name(self):
