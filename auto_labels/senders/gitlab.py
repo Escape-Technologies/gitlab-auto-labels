@@ -17,7 +17,7 @@ class GitlabSender(Sender):
         self.merge_request_project_id = getenv("CI_MERGE_REQUEST_PROJECT_ID")
         self.merge_request_iid = getenv("CI_MERGE_REQUEST_IID")
         self.merge_request_labels = getenv("CI_MERGE_REQUEST_LABELS")
-        self.token = getenv("CI_JOB_TOKEN")
+        self.token  = getenv("GITLAB_ACCESS_TOKEN") if getenv("GITLAB_ACCESS_TOKEN") else getenv("CI_JOB_TOKEN")
 
     @property
     def url(self) -> str:
